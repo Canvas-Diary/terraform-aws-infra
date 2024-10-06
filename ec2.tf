@@ -17,6 +17,10 @@ resource "aws_instance" "ec2_instance" {
   availability_zone      = "ap-northeast-2a"
   iam_instance_profile   = "ecsInstanceRole"
 
+  root_block_device {
+    volume_size = 20
+  }
+
   lifecycle {
     replace_triggered_by = [aws_security_group.ec2_sg]
   }
