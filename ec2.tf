@@ -15,6 +15,7 @@ resource "aws_instance" "ec2_instance" {
   key_name               = "canvas-diary"
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   availability_zone      = "ap-northeast-2a"
+  iam_instance_profile   = aws_iam_instance_profile.ecs_instance_profile.name
 
   lifecycle {
     replace_triggered_by = [aws_security_group.ec2_sg]
