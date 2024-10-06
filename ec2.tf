@@ -17,7 +17,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "ec2_instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.public_subnet.id
+  subnet_id              = aws_subnet.public_subnet_1.id
   key_name               = "canvas-diary"
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   availability_zone      = "ap-northeast-2a"
