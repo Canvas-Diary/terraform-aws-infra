@@ -20,3 +20,7 @@ data "aws_ecr_lifecycle_policy_document" "leave_recent" {
     }
   }
 }
+
+resource "aws_ecs_cluster" "ecs_cluster" {
+  name = "canvas-diary"
+}
