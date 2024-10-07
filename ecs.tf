@@ -22,7 +22,7 @@ data "aws_ecr_lifecycle_policy_document" "leave_recent" {
 }
 
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "canvas-diary"
+  name = "canvas-diary-cluster"
 }
 
 resource "aws_ecs_task_definition" "ecr_deploy_task" {
@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
 
   container_definitions = jsonencode([
     {
-      name      = "canvas-diary"
+      name      = "canvas-diary-app"
       image     = "image-uri"
       essential = true
       cpu       = 512
