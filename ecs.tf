@@ -5,10 +5,10 @@ resource "aws_ecr_repository" "ecr_repo" {
 
 resource "aws_ecr_lifecycle_policy" "ecr_lp" {
   repository = aws_ecr_repository.ecr_repo.name
-  policy = data.aws_ecr_lifecycle_policy_document.ecr_lp_doc.json
+  policy = data.aws_ecr_lifecycle_policy_document.leave_recent.json
 }
 
-data "aws_ecr_lifecycle_policy_document" "ecr_lp_doc" {
+data "aws_ecr_lifecycle_policy_document" "leave_recent" {
   rule {
     priority    = 1
     description = "최근 2개 이미지만 저장"
