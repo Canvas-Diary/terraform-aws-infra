@@ -42,7 +42,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   container_definitions = jsonencode([
     {
       name      = "canvas-diary"
-      image     = "image uri"
+      image     = "image-uri"
       essential = true
       cpu       = 1
       memory    = 500
