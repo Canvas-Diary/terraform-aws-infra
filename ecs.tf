@@ -31,8 +31,8 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   network_mode = "bridge"
   cpu = 1
   memory = 500
-  execution_role_arn = "ecsTaskExecutionRole"
-  task_role_arn = "ecsTaskExecutionRole"
+  execution_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
+  task_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
 
   runtime_platform {
     operating_system_family = "LINUX"
