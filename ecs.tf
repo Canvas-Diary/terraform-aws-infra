@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   family = "canvas-diary-deploy"
   requires_compatibilities = ["EC2"]
   network_mode = "bridge"
-  cpu = 1
+  cpu = 512
   memory = 500
   execution_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
   task_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
       name      = "canvas-diary"
       image     = "image-uri"
       essential = true
-      cpu       = 1
+      cpu       = 512
       memory    = 500
       memoryReservation = 500
       portMappings = [
