@@ -17,6 +17,13 @@ resource "aws_instance" "ec2_instance" {
   availability_zone      = "ap-northeast-2a"
   iam_instance_profile   = "ecsInstanceRole"
 
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo yum update
+              sudo yum install ecs-init -y
+              echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
+              EOF
+
   root_block_device {
     volume_size = 20
   }
