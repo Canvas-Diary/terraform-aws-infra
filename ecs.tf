@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   requires_compatibilities = ["EC2"]
   network_mode = "bridge"
   cpu = 512
-  memory = 500
+  memory = 474
   execution_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
   task_role_arn = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
 
@@ -45,8 +45,8 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
       image     = "${aws_ecr_repository.ecr_repo.repository_url}:latest"
       essential = true
       cpu       = 512
-      memory    = 500
-      memoryReservation = 500
+      memory    = 474
+      memoryReservation = 474
       portMappings = [
         {
           hostPort      = 80
