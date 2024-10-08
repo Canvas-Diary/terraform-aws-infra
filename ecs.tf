@@ -42,7 +42,7 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   container_definitions = jsonencode([
     {
       name      = "canvas-diary-app"
-      image     = "image-uri"
+      image     = "${aws_ecr_repository.ecr_repo.repository_url}:latest"
       essential = true
       cpu       = 512
       memory    = 500
@@ -56,4 +56,13 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
       ]
     }
   ])
+}
+
+resource "aws_ecs_service" "ecs-_service" {
+  name            = "canvas-diary-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  launch_type = "EC2"
+  task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
+  desired_count   = 1
+  wait_for_steady_state = true
 }
