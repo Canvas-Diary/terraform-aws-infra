@@ -1,7 +1,7 @@
 resource "aws_db_instance" "rds_instance" {
   engine                 = "mysql"
   engine_version         = "8.0"
-  identifier             = "rds_mysql"
+  identifier             = "rds-mysql"
   db_name                = "canvas_diary"
   username               = var.db_username
   password               = var.db_password
