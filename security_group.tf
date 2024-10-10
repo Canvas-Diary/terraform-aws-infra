@@ -1,5 +1,5 @@
 resource "aws_security_group" "ec2_sg" {
-  name        = "ec2"
+  name        = "ec2_sg"
   description = "ec2 app server security group"
   vpc_id      = aws_vpc.main_vpc.id
 
@@ -36,14 +36,6 @@ resource "aws_vpc_security_group_ingress_rule" "ec2_ingress_https" {
   to_port           = 443
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ec2_ingress_8080" {
-  security_group_id = aws_security_group.ec2_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "tcp"
-  from_port         = 8080
-  to_port           = 8080
-}
-
 resource "aws_vpc_security_group_egress_rule" "ec2_egress_all" {
   security_group_id = aws_security_group.ec2_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -51,7 +43,7 @@ resource "aws_vpc_security_group_egress_rule" "ec2_egress_all" {
 }
 
 resource "aws_security_group" "rds_sg" {
-  name        = "rds"
+  name        = "rds_sg"
   description = "rds security group"
   vpc_id      = aws_vpc.main_vpc.id
 
