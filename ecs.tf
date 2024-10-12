@@ -65,4 +65,6 @@ resource "aws_ecs_service" "ecs_service" {
   launch_type     = "EC2"
   task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
   desired_count   = 1
+  deployment_minimum_healthy_percent = 0
+  deployment_maximum_percent = 100
 }
