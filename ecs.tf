@@ -57,15 +57,15 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
       ]
       secrets = [
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_URL",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk/DB_URL",
           name      = "DB_URL"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_USERNAME",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk/DB_USERNAME",
           name      = "DB_USERNAME"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_PASSWORD",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk/DB_PASSWORD",
           name      = "DB_PASSWORD"
         }
       ]
