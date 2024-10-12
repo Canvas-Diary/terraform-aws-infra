@@ -55,16 +55,30 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
           protocol      = "tcp"
         }
       ]
+      secrets = [
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_URL::",
+          name      = "DB_URL"
+        },
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_USERNAME::",
+          name      = "DB_USERNAME"
+        },
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_PASSWORD::",
+          name      = "DB_PASSWORD"
+        }
+      ]
     }
   ])
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "canvas-diary-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
-  launch_type     = "EC2"
-  task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
-  desired_count   = 1
+  name                               = "canvas-diary-service"
+  cluster                            = aws_ecs_cluster.ecs_cluster.id
+  launch_type                        = "EC2"
+  task_definition                    = aws_ecs_task_definition.ecr_deploy_task.arn
+  desired_count                      = 1
   deployment_minimum_healthy_percent = 0
-  deployment_maximum_percent = 100
+  deployment_maximum_percent         = 100
 }
