@@ -67,6 +67,10 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
         {
           valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_PASSWORD::",
           name      = "DB_PASSWORD"
+        },
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:FLUX_API_KEY::",
+          name      = "FLUX_API_KEY"
         }
       ]
     }
