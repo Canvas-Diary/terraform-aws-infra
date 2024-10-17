@@ -20,7 +20,7 @@ resource "aws_instance" "ec2_instance" {
   user_data = <<-EOF
               #!/bin/bash
               yum update -y
-              yum install ecs-init -y
+              yum install ecs-init -y && \
               systemctl enable --now --no-block ecs.service
               echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
               systemctl start ecs
