@@ -19,9 +19,12 @@ resource "aws_instance" "ec2_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
-              sudo yum update
-              sudo yum install ecs-init -y
+              yum update -y
+              yum install ecs-init -y
+              systemctl enable --now --no-block ecs.service
               echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
+              systemctl start ecs
+              usermod -aG docker ec2-user
               EOF
 
   root_block_device {
