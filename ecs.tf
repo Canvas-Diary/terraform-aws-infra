@@ -71,6 +71,10 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
         {
           valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:FLUX_API_KEY::",
           name      = "FLUX_API_KEY"
+        },
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:GEMINI_API_KEY::",
+          name      = "GEMINI_API_KEY"
         }
       ]
     }
