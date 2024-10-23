@@ -19,11 +19,21 @@ resource "aws_instance" "ec2_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
+
+              # mysql client 설치
+              wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
+              dnf install mysql80-community-release-el9-1.noarch.rpm -y
+              dnf update -y
+              dnf install mysql-community-client -y
+
+              # ECS container agent 설치
               yum update -y
               yum install ecs-init -y
               echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
-              usermod -aG docker ec2-user
               systemctl enable --now --no-block ecs.service
+
+              # Docker 권한 설정
+              usermod -aG docker ec2-user
               EOF
 
   root_block_device {
