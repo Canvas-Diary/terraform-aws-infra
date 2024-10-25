@@ -26,6 +26,24 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = "canvas-diary-cluster"
 }
 
+resource "aws_autoscaling_group" "ecs_autoscaling_group" {
+  desired_capacity     = 1
+  min_size             = 1
+  max_size             = 2
+  vpc_zone_identifier  = [aws_subnet.public_subnet_1.id]
+
+  launch_template {
+    id      = aws_launch_template.ecs_instance_template.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "ecs-instance"
+    propagate_at_launch = true
+  }
+}
+
 resource "aws_ecs_task_definition" "ecr_deploy_task" {
   family                   = "canvas-diary-deploy"
   requires_compatibilities = ["EC2"]
@@ -87,6 +105,6 @@ resource "aws_ecs_service" "ecs_service" {
   launch_type                        = "EC2"
   task_definition                    = aws_ecs_task_definition.ecr_deploy_task.arn
   desired_count                      = 1
-  deployment_minimum_healthy_percent = 0
-  deployment_maximum_percent         = 100
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 200
 }

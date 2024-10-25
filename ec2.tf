@@ -8,43 +8,30 @@ data "aws_ami" "amzn-linux-2023-ami" {
   }
 }
 
-resource "aws_instance" "ec2_instance" {
-  ami                    = data.aws_ami.amzn-linux-2023-ami.id
+resource "aws_launch_template" "ecs_instance_template" {
+  name_prefix = "canvas-diary-"
+  image_id = data.aws_ami.amzn-linux-2023-ami.id
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public_subnet_1.id
   key_name               = "canvas-diary"
+
+  iam_instance_profile {
+    name = "ecsInstanceRole"
+  }
+
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  availability_zone      = "ap-northeast-2a"
-  iam_instance_profile   = "ecsInstanceRole"
 
   user_data = <<-EOF
               #!/bin/bash
-
-              # mysql client 설치
-              wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
-              dnf install mysql80-community-release-el9-1.noarch.rpm -y
-              dnf update -y
-              dnf install mysql-community-client -y
-
-              # ECS container agent 설치
-              yum update -y
-              yum install ecs-init -y
               echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
-              systemctl enable --now --no-block ecs.service
-
-              # Docker 권한 설정
-              usermod -aG docker ec2-user
               EOF
 
-  root_block_device {
-    volume_size = 20
+  network_interfaces {
+    subnet_id = aws_subnet.public_subnet_1.id
   }
 
-  lifecycle {
-    replace_triggered_by = [aws_security_group.ec2_sg]
-  }
-
-  tags = {
-    Name = "ec2_instance"
+  block_device_mappings {
+    ebs {
+      volume_size = 30
+    }
   }
 }
