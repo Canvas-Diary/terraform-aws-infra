@@ -14,6 +14,18 @@ resource "aws_launch_template" "ecs_instance_template" {
   instance_type = "t2.micro"
   key_name      = "canvas-diary"
 
+  network_interfaces {
+    security_groups = [aws_security_group.ec2_sg.id]
+  }
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+      volume_size = 30
+    }
+  }
+
   iam_instance_profile {
     name = "ecsInstanceRole"
   }
@@ -37,17 +49,4 @@ resource "aws_launch_template" "ecs_instance_template" {
     usermod -aG docker ec2-user
     EOF
   )
-
-  network_interfaces {
-    security_groups = [aws_security_group.ec2_sg.id]
-    subnet_id       = aws_subnet.public_subnet_1.id
-  }
-
-  block_device_mappings {
-    device_name = "/dev/xvda"
-
-    ebs {
-      volume_size = 30
-    }
-  }
 }
