@@ -18,15 +18,29 @@ resource "aws_launch_template" "ecs_instance_template" {
     name = "ecsInstanceRole"
   }
 
-  user_data = base64encode(<<-EOF
+  user_data = base64encode(
+    <<-EOF
     #!/bin/bash
-    echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" >> /etc/ecs/ecs.config
-  EOF
+    # mysql client 설치
+    wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
+    dnf install mysql80-community-release-el9-1.noarch.rpm -y
+    dnf update -y
+    dnf install mysql-community-client -y
+
+    # ECS container agent 설치
+    yum update -y
+    yum install ecs-init -y
+    echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" > /etc/ecs/ecs.config
+    systemctl enable --now --no-block ecs.service
+
+    # Docker 권한 설정
+    usermod -aG docker ec2-user
+    EOF
   )
 
   network_interfaces {
     security_groups = [aws_security_group.ec2_sg.id]
-    subnet_id = aws_subnet.public_subnet_1.id
+    subnet_id       = aws_subnet.public_subnet_1.id
   }
 
   block_device_mappings {
