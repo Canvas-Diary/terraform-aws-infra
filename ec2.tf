@@ -18,8 +18,6 @@ resource "aws_launch_template" "ecs_instance_template" {
     name = "ecsInstanceRole"
   }
 
-  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-
   user_data = base64encode(<<-EOF
     #!/bin/bash
     echo "ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name}" >> /etc/ecs/ecs.config
@@ -27,6 +25,7 @@ resource "aws_launch_template" "ecs_instance_template" {
   )
 
   network_interfaces {
+    security_groups = [aws_security_group.ec2_sg.id]
     subnet_id = aws_subnet.public_subnet_1.id
   }
 
