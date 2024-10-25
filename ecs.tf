@@ -118,6 +118,7 @@ resource "aws_ecs_service" "ecs_service" {
   name            = "canvas-diary-service"
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
+  desired_count   = 1
 
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ecs_cp.name
