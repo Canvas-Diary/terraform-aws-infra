@@ -13,7 +13,10 @@ resource "aws_launch_template" "ecs_instance_template" {
   image_id = data.aws_ami.amzn-linux-2023-ami.id
   instance_type          = "t2.micro"
   key_name               = "canvas-diary"
-  iam_instance_profile   = "ecsInstanceRole"
+
+  iam_instance_profile {
+    name = "ecsInstanceRole"
+  }
 
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
