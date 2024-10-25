@@ -27,10 +27,10 @@ resource "aws_ecs_cluster" "ecs_cluster" {
 }
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
-  desired_capacity     = 1
-  min_size             = 1
-  max_size             = 2
-  vpc_zone_identifier  = [aws_subnet.public_subnet_1.id]
+  desired_capacity    = 1
+  min_size            = 1
+  max_size            = 2
+  vpc_zone_identifier = [aws_subnet.public_subnet_1.id]
 
   launch_template {
     id      = aws_launch_template.ecs_instance_template.id
