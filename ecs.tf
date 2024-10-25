@@ -52,9 +52,7 @@ resource "aws_ecs_capacity_provider" "ecs_cp" {
 
     managed_scaling {
       status                    = "ENABLED"
-      target_capacity           = 80
-      minimum_scaling_step_size = 1
-      maximum_scaling_step_size = 4
+      target_capacity           = 50
     }
   }
 }
