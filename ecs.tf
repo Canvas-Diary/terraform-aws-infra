@@ -24,6 +24,7 @@ data "aws_ecr_lifecycle_policy_document" "leave_recent" {
 
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = "canvas-diary-cluster"
+
 }
 
 resource "aws_autoscaling_group" "ecs_asg" {
@@ -68,6 +69,11 @@ resource "aws_ecs_capacity_provider" "ecs_cp" {
       target_capacity           = 100
     }
   }
+}
+
+resource "aws_ecs_cluster_capacity_providers" "example" {
+  cluster_name = aws_ecs_cluster.ecs_cluster.name
+  capacity_providers = [aws_ecs_capacity_provider.ecs_cp.name]
 }
 
 resource "aws_ecs_task_definition" "ecr_deploy_task" {
