@@ -26,7 +26,7 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = "canvas-diary-cluster"
 }
 
-resource "aws_autoscaling_group" "ecs_autoscaling_group" {
+resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity    = 1
   min_size            = 1
   max_size            = 2
@@ -38,9 +38,26 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   }
 
   tag {
-    key                 = "Name"
-    value               = "ecs-instance"
+    key                 = "AmazonECSManaged"
+    value               = true
     propagate_at_launch = true
+  }
+}
+
+resource "aws_ecs_capacity_provider" "ecs_cp" {
+  name = "canvas-diary-capacity-provider"
+
+  auto_scaling_group_provider {
+    auto_scaling_group_arn         = aws_autoscaling_group.ecs_asg.arn
+
+    managed_scaling {
+      status                    = "ENABLED"
+      target_capacity           = 80
+      minimum_scaling_step_size = 1
+      maximum_scaling_step_size = 4
+    }
+
+    managed_termination_protection = "ENABLED"
   }
 }
 
