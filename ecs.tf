@@ -48,7 +48,7 @@ resource "aws_ecs_capacity_provider" "ecs_cp" {
   name = "canvas-diary-capacity-provider"
 
   auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.ecs_asg.arn
+    auto_scaling_group_arn = aws_autoscaling_group.ecs_asg.arn
 
     managed_scaling {
       status                    = "ENABLED"
@@ -56,8 +56,6 @@ resource "aws_ecs_capacity_provider" "ecs_cp" {
       minimum_scaling_step_size = 1
       maximum_scaling_step_size = 4
     }
-
-    managed_termination_protection = "ENABLED"
   }
 }
 
@@ -117,11 +115,13 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name                               = "canvas-diary-service"
-  cluster                            = aws_ecs_cluster.ecs_cluster.id
-  launch_type                        = "EC2"
-  task_definition                    = aws_ecs_task_definition.ecr_deploy_task.arn
-  desired_count                      = 1
-  deployment_minimum_healthy_percent = 100
-  deployment_maximum_percent         = 200
+  name            = "canvas-diary-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  launch_type     = "EC2"
+  task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
+
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.ecs_cp.name
+    weight            = 1
+  }
 }
