@@ -121,6 +121,7 @@ resource "aws_ecs_service" "ecs_service" {
 
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ecs_cp.name
+    base              = 1
     weight            = 1
   }
 }
