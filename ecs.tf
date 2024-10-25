@@ -117,7 +117,6 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
 resource "aws_ecs_service" "ecs_service" {
   name            = "canvas-diary-service"
   cluster         = aws_ecs_cluster.ecs_cluster.id
-  launch_type     = "EC2"
   task_definition = aws_ecs_task_definition.ecr_deploy_task.arn
 
   capacity_provider_strategy {
