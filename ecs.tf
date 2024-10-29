@@ -45,6 +45,8 @@ resource "aws_autoscaling_group" "ecs_asg" {
     max_healthy_percentage = 200
   }
 
+  target_group_arns = [aws_lb_target_group.nlb_tg.arn]
+
   tag {
     key                 = "Name"
     value               = "canvas-diary"
