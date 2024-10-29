@@ -1,11 +1,11 @@
 resource "aws_eip" "elb" {
-  domain   = "vpc"
+  domain = "vpc"
 }
 
 resource "aws_lb" "nlb" {
   load_balancer_type = "network"
   name               = "canvas-diary-nlb"
-  internal = false
+  internal           = false
 
   subnet_mapping {
     subnet_id     = aws_subnet.public_subnet_1.id
@@ -22,7 +22,7 @@ resource "aws_lb_target_group" "nlb_tg" {
   vpc_id   = aws_vpc.main_vpc.id
 
   health_check {
-    path = "/swagger-ui/index.html"
+    path     = "/swagger-ui/index.html"
     interval = 300
   }
 }

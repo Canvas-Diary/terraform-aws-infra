@@ -67,14 +67,14 @@ resource "aws_ecs_capacity_provider" "ecs_cp" {
     auto_scaling_group_arn = aws_autoscaling_group.ecs_asg.arn
 
     managed_scaling {
-      status                    = "ENABLED"
-      target_capacity           = 100
+      status          = "ENABLED"
+      target_capacity = 100
     }
   }
 }
 
 resource "aws_ecs_cluster_capacity_providers" "example" {
-  cluster_name = aws_ecs_cluster.ecs_cluster.name
+  cluster_name       = aws_ecs_cluster.ecs_cluster.name
   capacity_providers = [aws_ecs_capacity_provider.ecs_cp.name]
 }
 
@@ -140,7 +140,7 @@ resource "aws_ecs_service" "ecs_service" {
   desired_count   = 1
 
   deployment_minimum_healthy_percent = 100
-  deployment_maximum_percent = 200
+  deployment_maximum_percent         = 200
 
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ecs_cp.name
