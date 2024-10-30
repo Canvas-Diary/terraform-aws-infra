@@ -40,21 +40,4 @@ data "aws_iam_policy_document" "public_read_policy_document" {
       "${aws_s3_bucket.s3_bucket.arn}/*"
     ]
   }
-
-  statement {
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::339713161378:user/canvas-diary"]
-    }
-
-    actions = [
-      "s3:PutObject"
-    ]
-
-    resources = [
-      "${aws_s3_bucket.s3_bucket.arn}/*"
-    ]
-  }
 }
