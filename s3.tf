@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "public_read_policy_document" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::339713161378:role/ecsInstanceRole"]
+      identifiers = ["arn:aws:iam::339713161378:user/canvas-diary"]
     }
 
     actions = [

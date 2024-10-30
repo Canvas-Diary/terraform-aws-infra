@@ -23,7 +23,7 @@ resource "aws_lb_target_group" "nlb_tg" {
 
   health_check {
     path     = "/swagger-ui/index.html"
-    timeout = 10
+    timeout  = 10
     interval = 10
   }
 }
