@@ -137,12 +137,12 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
           name      = "KAKAO_CLIENT_SECRET"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:KAKAO_REDIRECT_URL::",
-          name      = "KAKAO_REDIRECT_URL"
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:KAKAO_REDIRECT_URI::",
+          name      = "KAKAO_REDIRECT_URI"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:JWT_SECRET_KEY::",
-          name      = "JWT_SECRET_KEY"
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:JWT_SECRET::",
+          name      = "JWT_SECRET"
         }
       ]
     }
