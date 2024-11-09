@@ -28,10 +28,23 @@ resource "aws_lb_target_group" "nlb_tg" {
   }
 }
 
-resource "aws_lb_listener" "nlb_listener" {
+resource "aws_lb_listener" "nlb_listener_http" {
   load_balancer_arn = aws_lb.nlb.arn
   protocol          = "TCP"
   port              = "80"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.nlb_tg.arn
+  }
+}
+
+resource "aws_lb_listener" "nlb_listener_https" {
+  load_balancer_arn = aws_lb.nlb.arn
+  protocol          = "TLS"
+  port              = "443"
+  ssl_policy = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn = "arn:aws:acm:ap-northeast-2:339713161378:certificate/0e7ee6a4-e5e9-4bbb-b7f5-8ea464bc051c"
 
   default_action {
     type             = "forward"

@@ -105,6 +105,11 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
           hostPort      = 80
           containerPort = 8080
           protocol      = "tcp"
+        },
+        {
+          hostPort      = 443
+          containerPort = 8080
+          protocol      = "tcp"
         }
       ]
       secrets = [
