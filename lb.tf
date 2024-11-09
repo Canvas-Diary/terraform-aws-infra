@@ -43,8 +43,8 @@ resource "aws_lb_listener" "nlb_listener_https" {
   load_balancer_arn = aws_lb.nlb.arn
   protocol          = "TLS"
   port              = "443"
-  ssl_policy = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn = "arn:aws:acm:ap-northeast-2:339713161378:certificate/0e7ee6a4-e5e9-4bbb-b7f5-8ea464bc051c"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = "arn:aws:acm:ap-northeast-2:339713161378:certificate/81d8eb70-4fdc-4dc2-9057-0f05c0be9d40"
 
   default_action {
     type             = "forward"
