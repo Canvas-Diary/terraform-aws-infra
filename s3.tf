@@ -18,7 +18,7 @@ resource "aws_s3_bucket_public_access_block" "s3_pab" {
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "public_read_policy" {
+resource "aws_s3_bucket_policy" "read_policy" {
   bucket = aws_s3_bucket.s3_bucket.id
   policy = data.aws_iam_policy_document.public_read_policy_document.json
 }
@@ -39,10 +39,20 @@ data "aws_iam_policy_document" "public_read_policy_document" {
     resources = [
       "${aws_s3_bucket.s3_bucket.arn}/*"
     ]
+
+    condition {
+      test = "StringLike"
+      variable = "aws:Referer"
+        values = [
+            "http://localhost:5173/*",
+            "http://www.canvas-diary.kro.kr/*",
+            "https://www.canvas-diary.kro.kr/*"
+        ]
+    }
   }
 }
 
-resource "aws_s3_bucket_cors_configuration" "example" {
+resource "aws_s3_bucket_cors_configuration" "cors" {
   bucket = aws_s3_bucket.s3_bucket.id
 
   cors_rule {
