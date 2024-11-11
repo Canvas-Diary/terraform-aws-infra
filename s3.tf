@@ -54,9 +54,11 @@ resource "aws_s3_bucket_cors_configuration" "example" {
       "https://www.canvas-diary.kro.kr"
     ]
     expose_headers = [
+      "ETag",
       "x-amz-server-side-encryption",
       "x-amz-request-id",
       "x-amz-id-2"
     ]
+    max_age_seconds = 3000
   }
 }
