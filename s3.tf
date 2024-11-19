@@ -20,10 +20,10 @@ resource "aws_s3_bucket_public_access_block" "s3_pab" {
 
 resource "aws_s3_bucket_policy" "read_policy" {
   bucket = aws_s3_bucket.s3_bucket.id
-  policy = data.aws_iam_policy_document.public_read_policy_document.json
+  policy = data.aws_iam_policy_document.read_policy_document.json
 }
 
-data "aws_iam_policy_document" "public_read_policy_document" {
+data "aws_iam_policy_document" "read_policy_document" {
   statement {
     effect = "Allow"
 
@@ -41,13 +41,13 @@ data "aws_iam_policy_document" "public_read_policy_document" {
     ]
 
     condition {
-      test = "StringLike"
+      test     = "StringLike"
       variable = "aws:Referer"
-        values = [
-            "http://localhost:5173/*",
-            "http://www.canvas-diary.kro.kr/*",
-            "https://www.canvas-diary.kro.kr/*"
-        ]
+      values = [
+        "http://localhost:5173/*",
+        "http://www.canvas-diary.kro.kr/*",
+        "https://www.canvas-diary.kro.kr/*"
+      ]
     }
   }
 }

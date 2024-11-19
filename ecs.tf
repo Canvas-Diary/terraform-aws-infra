@@ -148,6 +148,10 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
         {
           valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:JWT_SECRET::",
           name      = "JWT_SECRET"
+        },
+        {
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:OPENAI_API_KEY::",
+          name      = "OPENAI_API_KEY"
         }
       ]
     }
