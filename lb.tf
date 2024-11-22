@@ -22,7 +22,7 @@ resource "aws_lb_target_group" "nlb_tg" {
   vpc_id   = aws_vpc.main_vpc.id
 
   health_check {
-    path     = "/swagger-ui/index.html"
+    path     = "/actuator/health"
     timeout  = 10
     interval = 10
   }
