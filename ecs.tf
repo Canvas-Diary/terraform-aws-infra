@@ -84,8 +84,8 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
   network_mode             = "bridge"
   cpu                      = 1024
   memory                   = 949
-  execution_role_arn       = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
-  task_role_arn            = "arn:aws:iam::339713161378:role/ecsTaskExecutionRole"
+  execution_role_arn       = "arn:aws:iam::739275472971:role/ecsTaskExecutionRole"
+  task_role_arn            = "arn:aws:iam::739275472971:role/ecsTaskExecutionRole"
 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -114,43 +114,43 @@ resource "aws_ecs_task_definition" "ecr_deploy_task" {
       ]
       secrets = [
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_URL::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/mysql-VoYEBz:DB_URL::",
           name      = "DB_URL"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_USERNAME::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/mysql-VoYEBz:DB_USERNAME::",
           name      = "DB_USERNAME"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/mysql-SKFMzk:DB_PASSWORD::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/mysql-VoYEBz:DB_PASSWORD::",
           name      = "DB_PASSWORD"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:FLUX_API_KEY::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:FLUX_API_KEY::",
           name      = "FLUX_API_KEY"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:GEMINI_API_KEY::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:GEMINI_API_KEY::",
           name      = "GEMINI_API_KEY"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:KAKAO_REST_API_KEY::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:KAKAO_REST_API_KEY::",
           name      = "KAKAO_REST_API_KEY"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:KAKAO_CLIENT_SECRET::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:KAKAO_CLIENT_SECRET::",
           name      = "KAKAO_CLIENT_SECRET"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:KAKAO_REDIRECT_URI::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:KAKAO_REDIRECT_URI::",
           name      = "KAKAO_REDIRECT_URI"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:JWT_SECRET::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:JWT_SECRET::",
           name      = "JWT_SECRET"
         },
         {
-          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:339713161378:secret:canvas-diary/api-key-xosDpd:OPENAI_API_KEY::",
+          valueFrom = "arn:aws:secretsmanager:ap-northeast-2:739275472971:secret:canvas-diary/api-key-nL7Lv3:OPENAI_API_KEY::",
           name      = "OPENAI_API_KEY"
         }
       ]

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "canvas-diary"
+  bucket = "canvas-diary-2025"
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3_oc" {
